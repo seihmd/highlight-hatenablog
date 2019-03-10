@@ -5,6 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>はてなブログコードハイライトジェネレータ</title>
+    <style>
+      .code {
+        background-color: #282a36;
+        color: #ffffff;
+      }
+      .synComment {
+        color: #bfbfbf;
+      }
+      .synConstant {
+        color: #c5ff9a;
+      }
+      .synIdentifier {
+        color: #ff7171;
+      }
+      .synPreProc {
+        color: #a0f9ff;
+      }
+      .synSpecial {
+        color: #ff79c6;
+      }
+      .synStatement {
+        color: #a0f9ff;
+      }
+      .synType {
+        color: #ff79c6;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <section id="hlhb-src-container">
+      <select id="hlhb-src-select"></select>
+      <div id="hlhb-src-textarea" class="code"></div>
+    </section>
+  </body>
+
+  <script
+    type="text/javascript"
+    src="index.js"
+    charset="utf-8"
+    async="async"
+  ></script>
 </html>
