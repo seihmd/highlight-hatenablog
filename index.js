@@ -185,7 +185,7 @@ const app = new Vue({
     preCodeBgcolor: {
       handler: function(val, oldVal) {
         if (isValidHex(val)) {
-          updateCss(".entry-content pre.code", "backgroundColor", val);
+          updateCss(".entry-content", "backgroundColor", val);
         }
       },
       immediate: true
@@ -193,7 +193,7 @@ const app = new Vue({
     preCodeColor: {
       handler: function(val, oldVal) {
         if (isValidHex(val)) {
-          updateCss(".entry-content pre.code", "color", val);
+          updateCss("pre.code", "color", val);
         }
       },
       immediate: true
@@ -254,5 +254,16 @@ const app = new Vue({
       },
       immediate: true
     }
+  },
+  mounted: function() {
+    this.$nextTick(function() {
+      // Code that will run only after the
+      // entire view has been rendered
+    });
   }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var elems = document.querySelectorAll("select");
+  var instances = M.FormSelect.init(elems);
 });

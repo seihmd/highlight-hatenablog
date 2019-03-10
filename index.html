@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>はてなブログコードハイライトジェネレータ</title>
     <style>
-      .entry-content pre.code {
+      .entry-content {
+      }
+      pre.code {
       }
       .synComment {
       }
@@ -22,56 +24,98 @@
       }
       .synType {
       }
+
+      .hlhb-card {
+        position: relative;
+        margin: 0.5rem 0 1rem 0;
+        -webkit-transition: -webkit-box-shadow 0.25s;
+        transition: -webkit-box-shadow 0.25s;
+        transition: box-shadow 0.25s;
+        transition: box-shadow 0.25s, -webkit-box-shadow 0.25s;
+        border: #d0d0d0 solid 1px;
+        border-radius: 5px;
+        padding: 15px 25px;
+        overflow: scroll;
+      }
+      [v-cloak] {
+        display: none;
+      }
+      .dropdown-content {
+        max-height: 250px;
+        backface-visibility: hidden;
+      }
     </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
   </head>
   <body>
-    <section id="app">
-      <select v-model="selectedLang">
-        <option v-for="lang in langs" :value="lang">{{ lang }}</option>
-      </select>
-      <div class="entry-content">
-        <pre id="hlhb-src-textarea" class="code" v-html="srcHtml"></pre>
+    <div class="section">
+      <div class="container">
+        <div class="col s12 m8 offset-m1 xl7 offset-xl1 center-on-small-only">
+          <h3 class="header">はてなブログ シンタックスハイライトGenerator</h1>
+          <h4 class="light">TODO サイトの説明</h4>
+        </div>
       </div>
-
-      <div>
-        .entry-content pre.code background-color:
-        <input type="text" v-model="preCodeBgcolor" />
+    </div>
+    <div id="app" class="container" v-cloak>
+      <div class="row">
+        <div class="col s8">
+          <div class="input-field col s12">
+            <select v-model="selectedLang">
+              <option v-for="lang in langs" :value="lang">{{ lang }}</option>
+            </select>
+            <label>ファイルタイプ</label>
+          </div>
+          <div class="entry-content hlhb-card">
+            <div class="card-content">
+              <pre class="code" v-html="srcHtml"></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col s4">
+          <div class="input-field">
+            <label>background</label>
+            <input type="text" class="validate" v-model="preCodeBgcolor" />
+          </div>
+          <div class="input-field">
+            <label>color</label>
+            <input type="text" class="validate" v-model="preCodeColor" />
+          </div>
+          <div class="input-field">
+            <label>synComment</label>
+            <input type="text" class="validate" v-model="synCommentColor" />
+          </div>
+          <div class="input-field">
+            <label>synConstant</label>
+            <input type="text" class="validate" v-model="synConstantColor" />
+          </div>
+          <div class="input-field">
+            <label>synIdentifier</label>
+            <input type="text" class="validate" v-model="synIdentifierColor" />
+          </div>
+          <div class="input-field">
+            <label>synPreProc</label>
+            <input type="text" class="validate" v-model="synPreProcColor" />
+          </div>
+          <div class="input-field">
+            <label>synSpecial</label>
+            <input type="text" class="validate" v-model="synSpecialColor" />
+          </div>
+          <div class="input-field">
+            <label>synStatement</label>
+            <input type="text" class="validate" v-model="synStatementColor" />
+          </div>
+          <div class="input-field">
+            <label>synType</label>
+            <input type="text" class="validate" v-model="synTypeColor" />
+          </div>
+        </div>
       </div>
-      <div>
-        .entry-content pre.code color:
-        <input type="text" v-model="preCodeColor" />
-      </div>
-
-      <div>
-        .synComment color
-        <input type="text" v-model="synCommentColor" />
-      </div>
-      <div>
-        .synConstant color
-        <input type="text" v-model="synConstantColor" />
-      </div>
-      <div>
-        .synIdentifier color
-        <input type="text" v-model="synIdentifierColor" />
-      </div>
-      <div>
-        .synPreProc color
-        <input type="text" v-model="synPreProcColor" />
-      </div>
-      <div>
-        .synSpecial color
-        <input type="text" v-model="synSpecialColor" />
-      </div>
-      <div>
-        .synStatement color
-        <input type="text" v-model="synStatementColor" />
-      </div>
-      <div>
-        .synType color
-        <input type="text" v-model="synTypeColor" />
-      </div>
-    </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <script type="text/javascript" src="index.js" charset="utf-8"></script>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
-  <script type="text/javascript" src="index.js" charset="utf-8"></script>
 </html>
