@@ -6,44 +6,72 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>はてなブログコードハイライトジェネレータ</title>
     <style>
-      .code {
-        background-color: #282a36;
-        color: #ffffff;
+      .entry-content pre.code {
       }
       .synComment {
-        color: #bfbfbf;
       }
       .synConstant {
-        color: #c5ff9a;
       }
       .synIdentifier {
-        color: #ff7171;
       }
       .synPreProc {
-        color: #a0f9ff;
       }
       .synSpecial {
-        color: #ff79c6;
       }
       .synStatement {
-        color: #a0f9ff;
       }
       .synType {
-        color: #ff79c6;
       }
     </style>
   </head>
   <body>
-    <section id="hlhb-src-container">
-      <select id="hlhb-src-select"></select>
-      <div id="hlhb-src-textarea" class="code"></div>
+    <section id="app">
+      <select v-model="selectedLang">
+        <option v-for="lang in langs" :value="lang">{{ lang }}</option>
+      </select>
+      <div class="entry-content">
+        <pre id="hlhb-src-textarea" class="code" v-html="srcHtml"></pre>
+      </div>
+
+      <div>
+        .entry-content pre.code background-color:
+        <input type="text" v-model="preCodeBgcolor" />
+      </div>
+      <div>
+        .entry-content pre.code color:
+        <input type="text" v-model="preCodeColor" />
+      </div>
+
+      <div>
+        .synComment color
+        <input type="text" v-model="synCommentColor" />
+      </div>
+      <div>
+        .synConstant color
+        <input type="text" v-model="synConstantColor" />
+      </div>
+      <div>
+        .synIdentifier color
+        <input type="text" v-model="synIdentifierColor" />
+      </div>
+      <div>
+        .synPreProc color
+        <input type="text" v-model="synPreProcColor" />
+      </div>
+      <div>
+        .synSpecial color
+        <input type="text" v-model="synSpecialColor" />
+      </div>
+      <div>
+        .synStatement color
+        <input type="text" v-model="synStatementColor" />
+      </div>
+      <div>
+        .synType color
+        <input type="text" v-model="synTypeColor" />
+      </div>
     </section>
   </body>
-
-  <script
-    type="text/javascript"
-    src="index.js"
-    charset="utf-8"
-    async="async"
-  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+  <script type="text/javascript" src="index.js" charset="utf-8"></script>
 </html>

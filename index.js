@@ -147,18 +147,112 @@ const langSrc = {
     '<span class="synPreProc">---</span><br><span class="synComment"># comment</span><br><span class="synIdentifier">string_1</span><span class="synSpecial">:</span> <span class="synConstant">"Bar"</span><br><span class="synIdentifier">string_2</span><span class="synSpecial">:</span> <span class="synConstant">\'bar\'</span><br><span class="synIdentifier">string_3</span><span class="synSpecial">:</span> bar<br><span class="synIdentifier">inline_keys_ignored</span><span class="synSpecial">:</span> sompath/name/file.jpg<br><span class="synIdentifier">keywords_in_yaml</span><span class="synSpecial">:</span><br>  <span class="synStatement">- </span><span class="synConstant">true</span><br>  <span class="synStatement">- </span><span class="synConstant">false</span><br>  <span class="synStatement">- </span><span class="synConstant">TRUE</span><br>  <span class="synStatement">- </span><span class="synConstant">FALSE</span><br>  <span class="synStatement">- </span><span class="synConstant">21</span><br>  <span class="synStatement">- </span><span class="synConstant">21.0</span><br>  <span class="synStatement">- </span><span class="synType">!!str</span> <span class="synConstant">123</span><br><span class="synConstant">"quoted_key"</span><span class="synSpecial">:</span> <span class="synType">&amp;foobar</span><br>  <span class="synIdentifier">bar</span><span class="synSpecial">:</span> foo<br>  <span class="synIdentifier">foo</span><span class="synSpecial">:</span><br>  <span class="synConstant">"foo"</span><span class="synSpecial">:</span> bar<br><br><span class="synIdentifier">reference</span><span class="synSpecial">:</span> <span class="synType">*foobar</span><br><br><span class="synIdentifier">multiline_1</span><span class="synSpecial">:</span> |<br>  Multiline<br>  String<br><span class="synIdentifier">multiline_2</span><span class="synSpecial">:</span> &gt;<br>  Multiline<br>  String<br><span class="synIdentifier">multiline_3</span><span class="synSpecial">:</span> <span class="synConstant">"</span><br><span class="synConstant">  Multiline string</span><br><span class="synConstant">  "</span><br><br><span class="synIdentifier">ansible_variables</span><span class="synSpecial">:</span> <span class="synConstant">"foo {{variable}}"</span><br><br><span class="synIdentifier">array_nested</span><span class="synSpecial">:</span><br><span class="synStatement">- </span>a<br><span class="synStatement">- </span><span class="synIdentifier">b</span><span class="synSpecial">:</span> <span class="synConstant">1</span><br>  <span class="synIdentifier">c</span><span class="synSpecial">:</span> <span class="synConstant">2</span><br><span class="synStatement">- </span>b<br><span class="synStatement">- </span>comment<br>'
 };
 
-const options = Object.keys(langSrc)
-  .map(lang => {
-    return `<option value="${lang}">${lang}</option>`;
-  })
-  .join("");
+function isValidHex(s) {
+  return /^(?=[0-9A-F]*$)(?:.{3}|.{6})$/i.test(s);
+}
 
-const langSelector = document.querySelector("#hlhb-src-select");
-const langTextarea = document.querySelector("#hlhb-src-textarea");
+function updateCss(targetClass, prop, val) {
+  [].slice.call(document.styleSheets[0].cssRules).some(cssRule => {
+    if (cssRule.selectorText === targetClass) {
+      cssRule.style[prop] = "#" + val;
+      return true;
+    }
+    return false;
+  });
+}
 
-langSelector.innerHTML = options;
-langSelector.addEventListener("change", ev => {
-  const langName = ev.target.value;
-  const src = langSrc[langName];
-  langTextarea.innerHTML = src;
+const app = new Vue({
+  el: "#app",
+  data: {
+    langs: Object.keys(langSrc),
+    selectedLang: "javascript",
+    preCodeBgcolor: "282a36",
+    preCodeColor: "ffffff",
+    synCommentColor: "bfbfbf",
+    synConstantColor: "c5ff9a",
+    synIdentifierColor: "ff7171",
+    synPreProcColor: "a0f9ff",
+    synSpecialColor: "ff79c6",
+    synStatementColor: "a0f9ff",
+    synTypeColor: "ff79c6"
+  },
+  computed: {
+    srcHtml: function() {
+      return langSrc[this.selectedLang];
+    }
+  },
+  watch: {
+    preCodeBgcolor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".entry-content pre.code", "backgroundColor", val);
+        }
+      },
+      immediate: true
+    },
+    preCodeColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".entry-content pre.code", "color", val);
+        }
+      },
+      immediate: true
+    },
+    synCommentColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".synComment", "color", val);
+        }
+      },
+      immediate: true
+    },
+    synConstantColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".synConstant", "color", val);
+        }
+      },
+      immediate: true
+    },
+    synIdentifierColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".synIdentifier", "color", val);
+        }
+      },
+      immediate: true
+    },
+    synPreProcColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".synPreProc", "color", val);
+        }
+      },
+      immediate: true
+    },
+    synSpecialColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".synSpecial", "color", val);
+        }
+      },
+      immediate: true
+    },
+    synStatementColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".synStatement", "color", val);
+        }
+      },
+      immediate: true
+    },
+    synTypeColor: {
+      handler: function(val, oldVal) {
+        if (isValidHex(val)) {
+          updateCss(".synType", "color", val);
+        }
+      },
+      immediate: true
+    }
+  }
 });
