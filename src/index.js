@@ -33,11 +33,60 @@ const app = new Vue({
     synSpecialColor: { hex: "#ff79c6" },
     synStatementColor: { hex: "#a0f9ff" },
     synTypeColor: { hex: "#ff79c6" },
-    visibleColorPicker: ""
+    visibleColorPicker: 1
   },
   computed: {
     srcHtml: function() {
       return fileTypeSrc[this.selectedLang];
+    },
+    colorSettings: function() {
+      return [
+        {
+          name: ".entry-content pre.code",
+          hex: this.preCodeBgcolor.hex,
+          prop: "backgroundColor"
+        },
+        {
+          name: ".entry-content pre.code",
+          hex: this.preCodeColor.hex,
+          prop: "color"
+        },
+        {
+          name: ".synComment",
+          hex: this.synCommentColor.hex,
+          prop: "color"
+        },
+        {
+          name: ".synConstant",
+          hex: this.synConstantColor.hex,
+          prop: "color"
+        },
+        {
+          name: ".synIdentifier",
+          hex: this.synIdentifierColor.hex,
+          prop: "color"
+        },
+        {
+          name: ".synPreProc",
+          hex: this.synPreProcColor.hex,
+          prop: "color"
+        },
+        {
+          name: ".synSpecial",
+          hex: this.synSpecialColor.hex,
+          prop: "color"
+        },
+        {
+          name: ".synStatement",
+          hex: this.synStatementColor.hex,
+          prop: "color"
+        },
+        {
+          name: ".synType",
+          hex: this.synTypeColor.hex,
+          prop: "color"
+        }
+      ];
     }
   },
   watch: {

@@ -24,6 +24,18 @@
       }
       .synType {
       }
+      .hlhb-color-setting {
+        cursor: pointer;
+      }
+      .hlhb-color-hex {
+        font-family: monospace;
+      }
+      .hlhb-color-view {
+        border: #efefef 1px solid
+      }
+      .hlhb-selected {
+        border-left: 5px solid;
+      }
       pre {
         font-family: Monaco,Consolas,Courier New,Courier,monospace,sans-serif !important;
       }
@@ -77,41 +89,15 @@
           </div>
         </div>
         <div class="col s8">
-          <div class="input-field">
-            <label>background</label>
-            <div @click="visibleColorPicker=1">{{ preCodeBgcolor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>color</label>
-            <div @click="visibleColorPicker=2">{{ preCodeColor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>synComment</label>
-            <div @click="visibleColorPicker=3">{{ synCommentColor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>synConstant</label>
-            <div @click="visibleColorPicker=4">{{ synConstantColor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>synIdentifier</label>
-            <div @click="visibleColorPicker=5">{{ synIdentifierColor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>synPreProc</label>
-            <div @click="visibleColorPicker=6">{{ synPreProcColor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>synSpecial</label>
-            <div @click="visibleColorPicker=7">{{ synSpecialColor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>synStatement</label>
-            <div @click="visibleColorPicker=8">{{ synStatementColor.hex }}</div>
-          </div>
-          <div class="input-field">
-            <label>synType</label>
-            <div @click="visibleColorPicker=9">{{ synTypeColor.hex }}</div>
+          <div class="collection">
+            <a
+              v-for="setting, i in colorSettings" 
+              :class="{'collection-item': true, 'hlhb-color-setting': true, 'hlhb-selected': visibleColorPicker===i+1}" 
+              @click="visibleColorPicker=i+1">
+              <span class="badge hlhb-color-view" :style="{backgroundColor: setting.hex}"></span>
+              <span class="badge hlhb-color-hex">{{ setting.hex }}</span>
+              {{ setting.name }}
+            </a>
           </div>
         </div>
         <div class="col s4">
