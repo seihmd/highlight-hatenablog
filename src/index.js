@@ -1,10 +1,6 @@
 import fileTypeSrc from "./FileTypeSrc";
+import colorTheme from "./Theme";
 import { Chrome } from "vue-color";
-
-function isValidHex(s) {
-  return true;
-  return /^#(?=[0-9A-F]*$)(?:.{3}|.{6})$/i.test(s);
-}
 
 function updateCss(targetClass, prop, val) {
   [].slice.call(document.styleSheets[0].cssRules).some(cssRule => {
@@ -23,16 +19,10 @@ const app = new Vue({
   el: "#app",
   data: {
     langs: Object.keys(fileTypeSrc),
+    themes: Object.keys(colorTheme),
     selectedLang: "javascript",
-    preCodeBgcolor: { hex: "#282a36" },
-    preCodeColor: { hex: "#ffffff" },
-    synCommentColor: { hex: "#bfbfbf" },
-    synConstantColor: { hex: "#c5ff9a" },
-    synIdentifierColor: { hex: "#ff7171" },
-    synPreProcColor: { hex: "#a0f9ff" },
-    synSpecialColor: { hex: "#ff79c6" },
-    synStatementColor: { hex: "#a0f9ff" },
-    synTypeColor: { hex: "#ff79c6" },
+    selectedTheme: "default",
+    colorSetting: {},
     visibleColorPicker: 1
   },
   methods: {
@@ -49,148 +39,134 @@ const app = new Vue({
       return [
         {
           name: ".entry-content pre.code",
-          hex: this.preCodeBgcolor.hex,
+          hex: this.colorSetting.preCodeBgcolor.hex,
           prop: "backgroundColor"
         },
         {
           name: ".entry-content pre.code",
-          hex: this.preCodeColor.hex,
+          hex: this.colorSetting.preCodeColor.hex,
           prop: "color"
         },
         {
           name: ".synComment",
-          hex: this.synCommentColor.hex,
+          hex: this.colorSetting.synCommentColor.hex,
           prop: "color"
         },
         {
           name: ".synConstant",
-          hex: this.synConstantColor.hex,
+          hex: this.colorSetting.synConstantColor.hex,
           prop: "color"
         },
         {
           name: ".synIdentifier",
-          hex: this.synIdentifierColor.hex,
+          hex: this.colorSetting.synIdentifierColor.hex,
           prop: "color"
         },
         {
           name: ".synPreProc",
-          hex: this.synPreProcColor.hex,
+          hex: this.colorSetting.synPreProcColor.hex,
           prop: "color"
         },
         {
           name: ".synSpecial",
-          hex: this.synSpecialColor.hex,
+          hex: this.colorSetting.synSpecialColor.hex,
           prop: "color"
         },
         {
           name: ".synStatement",
-          hex: this.synStatementColor.hex,
+          hex: this.colorSetting.synStatementColor.hex,
           prop: "color"
         },
         {
           name: ".synType",
-          hex: this.synTypeColor.hex,
+          hex: this.colorSetting.synTypeColor.hex,
           prop: "color"
         }
       ];
     },
     cssForHighlight: function() {
       return `.entry-content pre.code {
-    background-color: ${this.preCodeBgcolor.hex};
-    color: ${this.preCodeColor.hex};
+    background-color: ${this.colorSetting.preCodeBgcolor.hex};
+    color: ${this.colorSetting.preCodeColor.hex};
 }
-.synComment { color: ${this.synCommentColor.hex}; }
-.synConstant { color: ${this.synConstantColor.hex}; }
-.synIdentifier { color: ${this.synIdentifierColor.hex}; }
-.synPreProc { color: ${this.synPreProcColor.hex}; }
-.synSpecial { color: ${this.synSpecialColor.hex}; }
-.synStatement { color: ${this.synStatementColor.hex}; }
-.synType { color: ${this.synTypeColor.hex}; }`;
+.synComment { color: ${this.colorSetting.synCommentColor.hex}; }
+.synConstant { color: ${this.colorSetting.synConstantColor.hex}; }
+.synIdentifier { color: ${this.colorSetting.synIdentifierColor.hex}; }
+.synPreProc { color: ${this.colorSetting.synPreProcColor.hex}; }
+.synSpecial { color: ${this.colorSetting.synSpecialColor.hex}; }
+.synStatement { color: ${this.colorSetting.synStatementColor.hex}; }
+.synType { color: ${this.colorSetting.synTypeColor.hex}; }`;
     }
   },
   watch: {
-    "preCodeBgcolor.hex": {
+    selectedTheme: {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".entry-content", "backgroundColor", val);
+        const newSetting = colorTheme[val];
+        if (!newSetting) {
+          newSetting = colorTheme["default"];
         }
+        this.colorSetting = Object.assign({}, newSetting);
       },
       immediate: true
     },
-    "preCodeColor.hex": {
+    "colorSetting.preCodeBgcolor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss("pre.code", "color", val);
-        }
+        updateCss(".entry-content", "backgroundColor", val);
       },
       immediate: true
     },
-    "synCommentColor.hex": {
+    "colorSetting.preCodeColor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".synComment", "color", val);
-        }
+        updateCss("pre.code", "color", val);
       },
       immediate: true
     },
-    "synConstantColor.hex": {
+    "colorSetting.synCommentColor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".synConstant", "color", val);
-        }
+        updateCss(".synComment", "color", val);
       },
       immediate: true
     },
-    "synIdentifierColor.hex": {
+    "colorSetting.synConstantColor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".synIdentifier", "color", val);
-        }
+        updateCss(".synConstant", "color", val);
       },
       immediate: true
     },
-    "synPreProcColor.hex": {
+    "colorSetting.synIdentifierColor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".synPreProc", "color", val);
-        }
+        updateCss(".synIdentifier", "color", val);
       },
       immediate: true
     },
-    "synSpecialColor.hex": {
+    "colorSetting.synPreProcColor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".synSpecial", "color", val);
-        }
+        updateCss(".synPreProc", "color", val);
       },
       immediate: true
     },
-    "synStatementColor.hex": {
+    "colorSetting.synSpecialColor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".synStatement", "color", val);
-        }
+        updateCss(".synSpecial", "color", val);
       },
       immediate: true
     },
-    "synTypeColor.hex": {
+    "colorSetting.synStatementColor.hex": {
       handler: function(val, oldVal) {
-        if (isValidHex(val)) {
-          updateCss(".synType", "color", val);
-        }
+        updateCss(".synStatement", "color", val);
+      },
+      immediate: true
+    },
+    "colorSetting.synTypeColor.hex": {
+      handler: function(val, oldVal) {
+        updateCss(".synType", "color", val);
       },
       immediate: true
     }
-  },
-  mounted: function() {
-    this.$nextTick(function() {
-      // Code that will run only after the
-      // entire view has been rendered
-    });
   }
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  var elems = document.querySelectorAll(".modal");
-  var instances = M.Modal.init(elems, {});
+  const elems = document.querySelectorAll(".modal");
+  const instances = M.Modal.init(elems, {});
 });
