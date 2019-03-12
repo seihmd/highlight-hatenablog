@@ -41,6 +41,17 @@
         right: -10px;
         top: -15px;
       }
+      .hlhb-css-textarea {
+        height: 225px;
+        font-family: monospace;
+        font-size: 18px;
+        border: none;
+        overflow: auto;
+        outline: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
       pre {
         font-family: Monaco,Consolas,Courier New,Courier,monospace,sans-serif !important;
       }
@@ -75,6 +86,8 @@
         </div>
       </div>
     </div>
+
+    <!-- vue app -->
     <div id="app" class="container" v-cloak>
       <div class="row">
         <div class="col s12">
@@ -113,8 +126,30 @@
           <color-picker v-else-if="visibleColorPicker===8" v-model="synStatementColor"></color-picker>
           <color-picker v-else-if="visibleColorPicker===9" v-model="synTypeColor"></color-picker>
         </div>
+        <div class="col s4">
+          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">CSSを表示する</a>
+        </div>
+
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <p>こちらをデザインCSSに設定してください。</p>
+            <blockquote>
+              <textarea
+                id="cssForHighlight"
+                class="hlhb-css-textarea"
+                spellcheck="false"
+                readonly>{{ cssForHighlight }}</textarea>
+            </blockquote>
+          </div>
+          <div class="modal-footer">
+            <a @click="copyCSS" href="#!" class="waves-effect waves-green btn-flat">copy</a>
+          </div>
+        </div>
       </div>
+
     </div>
+    <!-- vue app -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
     <script type="text/javascript" src="./src/index.js" charset="utf-8"></script>

@@ -35,6 +35,12 @@ const app = new Vue({
     synTypeColor: { hex: "#ff79c6" },
     visibleColorPicker: 1
   },
+  methods: {
+    copyCSS: function() {
+      document.getElementById("cssForHighlight").select();
+      document.execCommand("copy");
+    }
+  },
   computed: {
     srcHtml: function() {
       return fileTypeSrc[this.selectedLang];
@@ -87,6 +93,19 @@ const app = new Vue({
           prop: "color"
         }
       ];
+    },
+    cssForHighlight: function() {
+      return `.entry-content pre.code {
+    background-color: ${this.preCodeBgcolor.hex};
+    color: ${this.preCodeColor.hex};
+}
+.synComment { color: ${this.synCommentColor.hex}; }
+.synConstant { color: ${this.synConstantColor.hex}; }
+.synIdentifier { color: ${this.synIdentifierColor.hex}; }
+.synPreProc { color: ${this.synPreProcColor.hex}; }
+.synSpecial { color: ${this.synSpecialColor.hex}; }
+.synStatement { color: ${this.synStatementColor.hex}; }
+.synType { color: ${this.synTypeColor.hex}; }`;
     }
   },
   watch: {
@@ -172,6 +191,6 @@ const app = new Vue({
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  var elems = document.querySelectorAll("select");
-  var instances = M.FormSelect.init(elems);
+  var elems = document.querySelectorAll(".modal");
+  var instances = M.Modal.init(elems, {});
 });
