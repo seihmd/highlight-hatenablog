@@ -26,15 +26,16 @@
       }
       .hlhb-color-setting {
         cursor: pointer;
+        font-weight: bold;
       }
       .hlhb-color-hex {
-        font-family: monospace;
+        font-family: Consolas, monospace;
       }
       .hlhb-color-view {
         border: #efefef 1px solid
       }
       .hlhb-selected {
-        border-left: 5px solid;
+        border-left: #4eb1ef 5px solid;
       }
       .hlhb-lang-select {
         position: absolute;
@@ -43,7 +44,7 @@
       }
       .hlhb-css-textarea {
         height: 225px;
-        font-family: monospace;
+        font-family: Consolas, monospace;
         font-size: 18px;
         border: none;
         overflow: auto;
@@ -67,6 +68,12 @@
         padding: 15px 25px;
         overflow: scroll;
         max-height: 400px;
+      }
+      .m0auto {
+        margin: 0 auto;
+      }
+      select {
+        height: 2rem !important;
       }
       [v-cloak] {
         display: none;
@@ -104,30 +111,34 @@
           </div>
         </div>
         <div class="col s8">
-          <div class="collection">
-            <a
+          <ul class="collection">
+            <li
               v-for="setting, i in colorSettings" 
               :class="{'collection-item': true, 'hlhb-color-setting': true, 'hlhb-selected': visibleColorPicker===i+1}" 
               @click="visibleColorPicker=i+1">
               <span class="badge hlhb-color-view" :style="{backgroundColor: setting.hex}"></span>
               <span class="badge hlhb-color-hex">{{ setting.hex }}</span>
               {{ setting.name }}
-            </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col s4">
+          <div style="margin-top: 20px;">
+            <color-picker v-if="visibleColorPicker===1" v-model="preCodeBgcolor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===2" v-model="preCodeColor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===3" v-model="synCommentColor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===4" v-model="synConstantColor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===5" v-model="synIdentifierColor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===6" v-model="synPreProcColor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===7" v-model="synSpecialColor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===8" v-model="synStatementColor" class="m0auto"></color-picker>
+            <color-picker v-else-if="visibleColorPicker===9" v-model="synTypeColor" class="m0auto"></color-picker>
+
+            <div class="center-align" style="margin-top: 40px;">
+              <a class="waves-effect waves-light btn modal-trigger center-align light-blue" href="#modal1">CSSを表示する</a>
+            </div>
+            
           </div>
-        </div>
-        <div class="col s4">
-          <color-picker v-if="visibleColorPicker===1" v-model="preCodeBgcolor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===2" v-model="preCodeColor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===3" v-model="synCommentColor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===4" v-model="synConstantColor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===5" v-model="synIdentifierColor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===6" v-model="synPreProcColor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===7" v-model="synSpecialColor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===8" v-model="synStatementColor"></color-picker>
-          <color-picker v-else-if="visibleColorPicker===9" v-model="synTypeColor"></color-picker>
-        </div>
-        <div class="col s4">
-          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">CSSを表示する</a>
         </div>
 
         <div id="modal1" class="modal">
