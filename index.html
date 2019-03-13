@@ -24,81 +24,14 @@
       }
       .synType {
       }
-      .hlhb-color-setting {
-        cursor: pointer;
-        font-weight: bold;
-      }
-      .hlhb-color-hex {
-        font-family: Consolas, monospace;
-      }
-      .hlhb-color-view {
-        border: #efefef 1px solid
-      }
-      .hlhb-selected {
-        border-left: #4eb1ef 5px solid;
-      }
-      .hlhb-lang-select {
-        position: absolute;
-        right: -10px;
-        top: -15px;
-      }
-      .hlhb-theme-select {
-        position: absolute;
-        right: -10px;
-        top: 45px;
-      }
-      .hlhb-css-textarea {
-        height: 225px;
-        font-family: Consolas, monospace;
-        font-size: 18px;
-        border: none;
-        overflow: auto;
-        outline: none;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-      }
-      pre {
-        font-family: Monaco,Consolas,Courier New,Courier,monospace,sans-serif !important;
-      }
-      .hlhb-card {
-        position: relative;
-        margin: 0.5rem 0 1rem 0;
-        -webkit-transition: -webkit-box-shadow 0.25s;
-        transition: -webkit-box-shadow 0.25s;
-        transition: box-shadow 0.25s;
-        transition: box-shadow 0.25s, -webkit-box-shadow 0.25s;
-        border: #d0d0d0 solid 1px;
-        border-radius: 5px;
-        padding: 15px 25px;
-        overflow: scroll;
-        max-height: 400px;
-      }
-      .m0auto {
-        margin: 0 auto;
-      }
-      select {
-        height: 2rem !important;
-      }
-      [v-cloak] {
-        display: none;
-      }
     </style>
+    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
   </head>
   <body>
-    <div class="section">
-      <div class="container">
-        <div class="col s12 m8 offset-m1 xl7 offset-xl1 center-on-small-only">
-          <h3 class="header">はてなブログ シンタックスハイライトGenerator</h1>
-          <h4 class="light">TODO サイトの説明</h4>
-        </div>
-      </div>
-    </div>
-
     <!-- vue app -->
     <div id="app" class="container" v-cloak>
       <div class="row">
@@ -108,13 +41,17 @@
               <div class="hlhb-lang-select">
                 <label>ファイルタイプ</label>
                 <select v-model="selectedLang" class="browser-default">
-                  <option v-for="lang in langs" :value="lang">{{ lang }}</option>
+                  <option v-for="lang in langs" :value="lang">{{
+                    lang
+                  }}</option>
                 </select>
               </div>
               <div class="hlhb-theme-select">
                 <label>カラーテーマ</label>
                 <select v-model="selectedTheme" class="browser-default">
-                  <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                  <option v-for="theme in themes" :value="theme">{{
+                    theme
+                  }}</option>
                 </select>
               </div>
               <pre class="code" v-html="srcHtml"></pre>
@@ -124,56 +61,121 @@
         <div class="col s8">
           <ul class="collection">
             <li
-              v-for="setting, i in colorSettings" 
-              :class="{'collection-item': true, 'hlhb-color-setting': true, 'hlhb-selected': visibleColorPicker===i+1}" 
-              @click="visibleColorPicker=i+1">
-              <span class="badge hlhb-color-view" :style="{backgroundColor: setting.hex}"></span>
+              v-for="setting, i in colorSettings"
+              :class="{'collection-item': true, 'hlhb-color-setting': true, 'hlhb-selected': visibleColorPicker===i+1}"
+              @click="visibleColorPicker=i+1"
+            >
+              <span
+                class="badge hlhb-color-view"
+                :style="{backgroundColor: setting.hex}"
+              ></span>
               <span class="badge hlhb-color-hex">{{ setting.hex }}</span>
-              {{ setting.name }}
+              <b>{{ setting.name }}</b
+              >&nbsp;<span class="badge hlhb-color-hex">{{
+                setting.prop
+              }}</span>
             </li>
           </ul>
         </div>
         <div class="col s4">
           <div style="margin-top: 20px;">
-            <color-picker v-if="visibleColorPicker===1" v-model="colorSetting.preCodeBgcolor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===2" v-model="colorSetting.preCodeColor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===3" v-model="colorSetting.synCommentColor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===4" v-model="colorSetting.synConstantColor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===5" v-model="colorSetting.synIdentifierColor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===6" v-model="colorSetting.synPreProcColor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===7" v-model="colorSetting.synSpecialColor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===8" v-model="colorSetting.synStatementColor" class="m0auto"></color-picker>
-            <color-picker v-else-if="visibleColorPicker===9" v-model="colorSetting.synTypeColor" class="m0auto"></color-picker>
+            <color-picker
+              v-if="visibleColorPicker===1"
+              v-model="colorSetting.preCodeBgcolor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===2"
+              v-model="colorSetting.preCodeColor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===3"
+              v-model="colorSetting.synCommentColor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===4"
+              v-model="colorSetting.synConstantColor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===5"
+              v-model="colorSetting.synIdentifierColor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===6"
+              v-model="colorSetting.synPreProcColor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===7"
+              v-model="colorSetting.synSpecialColor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===8"
+              v-model="colorSetting.synStatementColor"
+              class="m0auto"
+            ></color-picker>
+            <color-picker
+              v-else-if="visibleColorPicker===9"
+              v-model="colorSetting.synTypeColor"
+              class="m0auto"
+            ></color-picker>
 
             <div class="center-align" style="margin-top: 40px;">
-              <a class="waves-effect waves-light btn modal-trigger center-align light-blue" href="#modal1">CSSを表示する</a>
+              <a
+                @click="showModal"
+                class="waves-effect waves-light btn modal-trigger center-align light-blue"
+                href="#"
+                >CSSを表示する</a
+              >
             </div>
-            
           </div>
         </div>
-
-        <div id="modal1" class="modal">
-          <div class="modal-content">
+        <modals-container>
+          <div>aaa</div>
+        </modals-container>
+        <!-- <modal v-if="showModal" @close="showModal = false">
+          
+          <div slot="body">
             <p>こちらをデザインCSSに設定してください。</p>
             <blockquote>
               <textarea
                 id="cssForHighlight"
                 class="hlhb-css-textarea"
                 spellcheck="false"
-                readonly>{{ cssForHighlight }}</textarea>
+                readonly
+                >{{ cssForHighlight }}</textarea
+              >
             </blockquote>
           </div>
-          <div class="modal-footer">
-            <a @click="copyCSS" href="#!" class="waves-effect waves-green btn-flat">copy</a>
+          <div slot="footer">
+            <a
+              @click="copyCSS"
+              href="#!"
+              class="waves-effect waves-green btn-flat"
+              >{{ copied ? "コピーしました" : "コピーする" }}</a
+            >
+            <a
+              @click="showModal=false"
+              href="#!"
+              class="waves-effect waves-green btn-flat"
+              >close</a
+            >
           </div>
-        </div>
+        </modal> -->
       </div>
-
     </div>
     <!-- vue app -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
-    <script type="text/javascript" src="./src/index.js" charset="utf-8"></script>
+    <script
+      type="text/javascript"
+      src="./src/index.js"
+      charset="utf-8"
+    ></script>
   </body>
 </html>

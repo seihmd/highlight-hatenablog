@@ -1,6 +1,9 @@
 import fileTypeSrc from "./FileTypeSrc";
 import colorTheme from "./Theme";
 import { Chrome } from "vue-color";
+import VModal from "vue-js-modal";
+
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
 
 function updateCss(targetClass, prop, val) {
   [].slice.call(document.styleSheets[0].cssRules).some(cssRule => {
@@ -26,9 +29,35 @@ const app = new Vue({
     visibleColorPicker: 1
   },
   methods: {
+    showModal: function() {
+      this.$modal.show(
+        {
+          template: `
+<div style="margin:30px;">
+  <p>こちらをデザインCSSに設定してください。</p>
+  <blockquote>
+    <textarea id="cssForHighlight" class="hlhb-css-textarea" spellcheck="false" readonly>{{ cssForHighlight }}</textarea>
+  </blockquote>
+  <div class="modal-footer">
+    <a @click="copyCSS" href="#!" class="waves-effect waves-green btn-flat">コピーする</a>
+  </div>
+</div>`,
+          props: ["cssForHighlight", "copyCSS"]
+        },
+        {
+          cssForHighlight: this.cssForHighlight,
+          copyCSS: this.copyCSS
+        },
+        {
+          height: "auto"
+        }
+      );
+    },
+    closeModal: function() {},
     copyCSS: function() {
       document.getElementById("cssForHighlight").select();
       document.execCommand("copy");
+      this.copied = true;
     }
   },
   computed: {
@@ -164,9 +193,4 @@ const app = new Vue({
       immediate: true
     }
   }
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-  const elems = document.querySelectorAll(".modal");
-  const instances = M.Modal.init(elems, {});
 });

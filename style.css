@@ -1,0 +1,60 @@
+.hlhb-color-setting {
+  cursor: pointer;
+}
+.hlhb-color-hex {
+  font-family: Consolas, monospace;
+}
+.hlhb-color-view {
+  border: #efefef 1px solid;
+}
+.hlhb-selected {
+  border-left: #4eb1ef 5px solid;
+}
+.hlhb-lang-select {
+  position: absolute;
+  right: -10px;
+  top: -15px;
+}
+.hlhb-theme-select {
+  position: absolute;
+  right: -10px;
+  top: 45px;
+}
+.hlhb-css-textarea {
+  height: 225px;
+  font-family: Consolas, monospace;
+  font-size: 18px;
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
+}
+pre {
+  font-family: Monaco, Consolas, Courier New, Courier, monospace, sans-serif !important;
+}
+.hlhb-card {
+  position: relative;
+  margin: 0.5rem 0 1rem 0;
+  -webkit-transition: -webkit-box-shadow 0.25s;
+  transition: -webkit-box-shadow 0.25s;
+  transition: box-shadow 0.25s;
+  transition: box-shadow 0.25s, -webkit-box-shadow 0.25s;
+  border: #d0d0d0 solid 1px;
+  border-radius: 5px;
+  padding: 15px 25px;
+  overflow: scroll;
+  max-height: 400px;
+}
+.m0auto {
+  margin: 0 auto;
+}
+select {
+  height: 2rem !important;
+}
+
+[v-cloak] {
+  display: none;
+}
