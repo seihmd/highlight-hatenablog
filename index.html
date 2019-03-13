@@ -2,9 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="はてなブログ, コード, シンタックスハイライト, CSS, ジェネレータ"
+    />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>はてなブログコードハイライトジェネレータ</title>
+    <title>
+      はてなブログのコードシンタックスハイライト用CSSをカスタマイズできるやつ
+    </title>
     <style>
       .entry-content {
       }
@@ -36,6 +45,9 @@
     <div id="app" class="container" v-cloak>
       <div class="row">
         <div class="col s12">
+          <h1 style="font-size: 20px; margin: 1rem 0 1rem;">
+            はてなブログのコードシンタックスハイライト用CSSをカスタマイズできるやつ
+          </h1>
           <div class="entry-content hlhb-card">
             <div class="card-content" style="position: relative;">
               <div class="hlhb-lang-select">
@@ -139,7 +151,7 @@
     </div>
     <!-- vue app -->
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.8/vue.min.js"></script>
     <script
       type="text/javascript"
       src="./src/index.js"
