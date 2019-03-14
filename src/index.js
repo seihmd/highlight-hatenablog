@@ -53,7 +53,6 @@ const app = new Vue({
         }
       );
     },
-    closeModal: function() {},
     copyCSS: function() {
       document.getElementById("cssForHighlight").select();
       document.execCommand("copy");
