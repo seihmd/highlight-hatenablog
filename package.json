@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node_modules/.bin/parcel index.html",
-    "build": "node_modules/.bin/parcel build index.html --out-dir docs --public-url ./highlight-hatenablog/"
+    "build": "node_modules/.bin/parcel build index.html --out-dir docs --public-url ."
   },
   "author": "",
   "license": "ISC",
